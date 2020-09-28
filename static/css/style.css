@@ -1,0 +1,154 @@
+/* Top Site */
+.top_header {
+    background-color:#ffffff;
+    box-shadow: 3px 0px 20px 0px #00000070;
+    transition: .5s;
+}
+
+.top_header.hidden {
+    transform: translateY(-110%);
+}
+.logo-font {
+    font-family: ccmonstermash,sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: 0.4em;
+}
+
+.logo-string-t {
+    color:#01187c;
+}
+
+.section-title{
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+    border-width: 0 0 3px 0;
+    border-style: solid;
+    font-weight: bold;
+    letter-spacing: .05em;
+}
+.section-title-t{
+    border-color: #01187c;
+}
+
+.logo-string-o {
+    color:#ff5358;
+}
+
+.section-title-o{
+    border-color:#ff5358;
+}
+
+.logo-string-s {
+    color:#ffb345;
+}
+
+.section-title-s{
+    border-color:#ffb345;
+}
+
+
+.logo-string-h {
+    color:#41b6e6;
+}
+
+.section-title-h{
+    border-color:#41b6e6;
+}
+
+
+.logo-string-¥ {
+    color:#636363;
+}
+
+.mt-adjust-frontpage {
+    margin-top: 15%;
+    margin-bottom: 15%;
+}
+
+@media (min-width: 576px){
+    .container-sp-frontpage  {
+    max-width: 540px!important;
+    }
+}
+
+@media (min-width: 768px){
+    .container-sp-frontpage {
+        max-width: 720px!important;
+    }
+}
+    
+@media (min-width: 992px){
+    .container-sp-frontpage {
+        max-width: 800px!important;
+    }
+}
+        
+.tag{
+    border-width: 0 0 1px 0;
+    border-style: solid;
+}
+
+.article-title-name{
+    border-width: 1px 1px 3px 1px;
+    border-width: 0 0 3px 0;
+    border-style: solid;
+    border-color: #d6d2d2cf;
+    padding: 8px 16px 0 16px;
+    box-shadow: 4px 1px 9px 0px #a9a9a987;
+}
+
+
+
+@font-face {
+    font-family: 'NotoSansCJKjp-Regular';
+        src: url('font/NotoSansCJKjp-Regular.otf') format('opentype');
+    }
+
+    body{
+      font-family: "NotoSansCJKjp-Regular"!important;
+    }
+
+
+.article-number{
+    font-size: 112%;
+}
+
+.article-programlangage{
+    letter-spacing: .6px;
+}
+
+.mb-20px{
+    margin-bottom: 20px;
+}
+
+.section-not-choice{
+    opacity: 0.4;
+}
+
+.hide{
+    display:none;
+}
+
+.col-kill{
+    padding-right: 0px!important;
+    padding-left: 0px!important;
+}
+
+.form-control-boder{
+    border: 1px solid #636363!important;
+}
+
+
+.form-grup-kill-mb{
+    margin-bottom: 0rem!important;
+}
+
+.top_footer {
+    background-color:#ffffff;
+    box-shadow: 3px 0px 20px 0px #00000070;
+}
+.row-pd-kill {
+     margin-right: 0px!important;
+     margin-left: 0px!important;
+}

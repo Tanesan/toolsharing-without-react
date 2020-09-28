@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+<style>
+    .top_header.hidden {
+      transform: translateY(0%)!important;
+  }
+  .fixed-top{
+      position: relative !important;
+  }
+  </style>
+
+<div class="form-group form-grup-kill-mb">
+    <label for="title" class="mr-1">タイトルを入力してください</label>
+    <input type="text" id="title" class="form-control form-control-lg form-control-boder" placeholder="記事のタイトルを入力してください">
+</div>
+
+<div class="row row-pd-kill">
+    <div class="col-6 col-kill">
+        <div class="form-group form-grup-kill-mb">
+            <textarea type="text" id="article" class="form-control form-control-boder" placeholder="記事の詳細を入力してください" style="height:50vh;"></textarea>
+        </div>
+    </div>
+    <div class="col-6 col-kill">
+        <div class="form-group form-grup-kill-mb">
+            <textarea type="text" id="article-show" class="form-control form-control-boder" placeholder="記事の詳細が表示されます" style="height:50vh;"></textarea>
+        </div>
+    </div>
+</div>
+
+<textarea type="text" id="article-show" class="form-control form-control-boder" placeholder="記事の詳細が表示されます" style="height:30vh;"></textarea>
+
+
+
+
+
+<p>aaaa</p>
+<p>aaaa</p>
+
+<p>aaaa</p>
+<p>aaaa</p>
+<p>aaaa</p>
+<p>aaaa</p>
+<p>aaaa</p>
+
+<p>aaaa</p>
+<p>aaaa</p>
+<p>aaaa</p>
+<p>aaaa</p>
+<p>aaaa</p>
+<p>aaaa</p>
+
+<p>aaaa</p>
+<p>aaaa</p>
+<p>aaaa</p>
+<p>aaaa</p>
+<p>aaaa</p>
+<p>aaaa</p>
+
+
+
+
+<!-- Submit button display under absolute-->
+<nav class="navbar navbar-light mb-2 fixed-bottom top_footer" style="flex-direction: row-reverse;">
+    <!-- naver logo + title -->
+    <div>
+      <button type="button" class="btn btn-outline-success text-right mr-3">Submit</button>
+    </div>
+  </nav>
+
+{% endblock %}
