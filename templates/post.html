@@ -1,62 +1,22 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/code@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/link@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
-<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-
-
-<script>
-
-
-//プラグインを構成するクラス
-class AceCode {
-
-  //メニューバーにアイコンを表示
-  static get toolbox() { 
-    return{
-      title: 'Image',
-        icon: '<i class="fas fa-images"></i>'
-    }
-  }
-
-  //プラグインのUIを作成
-  render(){ 
-    const div = document.createElement('div');
-    const input = document.createElement('input');
-
-    input.addEventListener('paste', (event) => {
-
-  
-
-  });
-  }
-
-  //保存時のデータを抽出
-  save(){ 
- return{
-      url: data.querySelector('code').src
-    }
-  }
-
-}
-
-
-
-
-
-</script>
-
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="{{ url_for('static', filename='js/purify.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ace.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ext-language_tools.js"></script>
+<script src="https://cloud9ide.github.io/emmet-core/emmet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ext-emmet.js"></script>
 
 <style>
+
+  .no-blue-outline:focus{
+    outline: none;
+}
+.no-blue-outline::-moz-focus-inner{ /*Firefox用*/
+    border: none;
+}
+
     .top_header.hidden {
       transform: translateY(0%)!important;
   }
@@ -64,60 +24,61 @@ class AceCode {
       position: relative !important;
   }
 
+ .form-control{
+      border: .8px solid rgb(163,163,163,163) !important;
+      border-radius: 0rem;
+ }
+ .title-form{
+  border-bottom: hidden!important;
+  border-left: hidden!important;
+  border-right: hidden!important;
+ }
+ .tag-form{
+  border-left: hidden!important;
+  border-right: hidden!important;
+ }
+ .content-form{
+  border-top: hidden!important;
+  resize: none;
+  height:50vh!important;
+ }
+
+ p{
+  word-wrap: break-word;
+ }
   </style>
 
 <div class="form-group form-grup-kill-mb">
-    <input type="text" id="title" class="form-control form-control-lg form-control-boder" placeholder="記事のタイトルを入力してください">
+    <input type="text" id="title" class="form-control form-control-lg title-form no-blue-outline" placeholder="記事のタイトルを入力してください">
+    <input type="text" id="title-tag" class="form-control form-control tag-form no-blue-outline" placeholder="この記事に関するタグを入力してください" >
 </div>
-<div class="my-2 row row-pd-kill">
+
+
+
+
+
+<div class="row row-pd-kill">
     
-    <div class="col-9 col-kill mr-4 ml-2" style="padding: 10px; margin-bottom: 10px; border: 1px solid #333333;border-radius: .3rem;background-color: #d2d2d2c9;">
+    <div class="col-6 col-kill">
         <div class="form-group form-grup-kill-mb">
     
 
-            <div id="editor"></div>
-
-
+           <!--
+          <textarea type="text" id="article-writte" class="form-control form-control-boder content-form" placeholder="記事をご記入ください"></textarea>
+-->
+<div id="article-write" style="height:50vh;"></div>
         </div>
     </div>
 
- 
+   
+
+
+
+    <div class="col-6 col-kill">
+<div id="article-show" class="px-2" placeholder="記事の詳細が表示されます" style="height:50vh;"></div>
 </div>
-<textarea type="text" id="article-show" class="form-control form-control-boder" placeholder="記事の詳細が表示されます" style="height:30vh;"></textarea>
-
-
-
-
-
-<p>aaaa</p>
-<p>aaaa</p>
-
-<p>aaaa</p>
-<p>aaaa</p>
-<p>aaaa</p>
-<p>aaaa</p>
-<p>aaaa</p>
-
-<p>aaaa</p>
-<p>aaaa</p>
-<p>aaaa</p>
-<p>aaaa</p>
-<p>aaaa</p>
-<p>aaaa</p>
-
-<p>aaaa</p>
-<p>aaaa</p>
-<p>aaaa</p>
-<p>aaaa</p>
-<p>aaaa</p>
-<p>aaaa</p>
-
-
-<pre class="prettyprint">
-print("aaa")
-if aaa + aaaa == 2:
-  print("a")
-</pre>
+<div id="article-show-program" class="form-control form-control-boder" style="height:30vh;"></div>
+</div>
 
 
 
@@ -131,34 +92,46 @@ if aaa + aaaa == 2:
 
 
   <script>
-    const editor = new EditorJS({
-        holder: 'editor',
-      autofocus: true,
-      tools: {
-        header: Header,        
-        list: List,        
-        checklist: Checklist,
-        quote: Quote,
-        embed: Embed,
-        code: CodeTool,
-        Marker: {
-            class: Marker,
-            shortcut: 'CMD+SHIFT+M',
-          },
-        linkTool: {
-            class: LinkTool
-        },
-        image: {
-            class: ImageTool,
-            config: {
-              endpoints: {
-                byFile: 'http://127.0.0.1:5000/uploadFile', // Your backend file uploader endpoint
-                byUrl: 'http://127.0.0.1:5000/fetchUrl', // Your endpoint that provides uploading by Url
-              }
-            }
-          }
-    }
+    var editor = ace.edit("article-write");
+    editor.$blockScrolling = Infinity;
+    editor.setOptions({
+      enableBasicAutocompletion: true,
+      enableSnippets: true,
+      enableEmmet: true,
+      enableLiveAutocompletion: true
     });
+    editor.setTheme("ace/theme/tomorrow_night");
+    editor.setFontSize(14);
+    editor.getSession().setMode("ace/mode/html");
+    editor.getSession().setUseWrapMode(true);
+    editor.getSession().setTabSize(2);
+
+
+
+    const input = document.getElementById('article-write');
+
+    let commentout;
+
+    input.addEventListener('input', updateValue);
+
+function updateValue(e) {
+  var code = editor.getValue();
+ 
+        const regexp =  /<!--.+-->/g;
+        const contents = [];
+        let m;
+
+       if (code.match(regexp)){
+         m = String(code.match(regexp))
+       commentout = m.replace("<!--","").replace("-->","")
+       }
+console.log(commentout)
+}
+
+
+
+
+
 
 </script>
 {% endblock %}
