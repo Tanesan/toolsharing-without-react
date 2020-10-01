@@ -7,7 +7,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ext-language_tools.js"></script>
 <script src="https://cloud9ide.github.io/emmet-core/emmet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ext-emmet.js"></script>
-
+<script src="{{ url_for('static', filename='js/highlight/highlight.pack.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='js/highlight/styles/a11y-dark.css')}}">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.7.0/highlightjs-line-numbers.min.js"></script>
 <style>
 
   .no-blue-outline:focus{
@@ -121,12 +123,26 @@ function updateValue(e) {
         const contents = [];
         let m;
 
-       if (code.match(regexp)){
-         m = String(code.match(regexp))
-       commentout = m.replace("<!--","").replace("-->","")
+       code_list = code.split(/\r\n|\n/);
+
+       for (let i=0;i<code_list.length;i++){
+          if (code_list[i].match(regexp)){
+                  m = String(code_list[i].match(regexp))
+                  console.log(code_list[i].match(regexp).length)
+                  commentout += m.replace("<!--","").replace("-->","");
+          }
+
+
+                  /*
+            for (let i = 1; i < code.match(regexp).length; i++ ){
+                  commentout = commentout.replace("<!--","").replace("-->","");
+                  console.log(commentout);
+                  */
+            }
+        }
        document.getElementById('article-show').innerHTML = DOMPurify.sanitize(marked(commentout))
        }
-  console.log(commentout)
+  console.log(code)
 }
 
 
