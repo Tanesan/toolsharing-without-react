@@ -9,7 +9,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ext-emmet.js"></script>
 <script src="{{ url_for('static', filename='js/highlight/highlight.pack.js') }}"></script>
 <link rel="stylesheet" href="{{ url_for('static', filename='js/highlight/styles/a11y-dark.css')}}">
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.7.0/highlightjs-line-numbers.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
 <style>
 
   .no-blue-outline:focus{
@@ -54,10 +54,11 @@
     <input type="text" id="title" class="form-control form-control-lg title-form no-blue-outline" placeholder="記事のタイトルを入力してください">
     <input type="text" id="title-tag" class="form-control form-control tag-form no-blue-outline" placeholder="この記事に関するタグを入力してください" >
 </div>
+<!--
+<pre><code><p>ああああ</p></code></pre>
 
 
-
-
+-->
 
 <div class="row row-pd-kill">
     
@@ -94,6 +95,9 @@
 
 
   <script>
+    hljs.initHighlightingOnLoad();
+      hljs.initLineNumbersOnLoad();
+    // Ace js config
     var editor = ace.edit("article-write");
     editor.$blockScrolling = Infinity;
     editor.setOptions({
@@ -109,45 +113,66 @@
     editor.getSession().setTabSize(2);
 
 
-
     const input = document.getElementById('article-write');
 
-    let commentout;
 
     input.addEventListener('input', updateValue);
-
+    
+//if user input the data, always do this function
 function updateValue(e) {
+  let encode = "";
   var code = editor.getValue();
- 
-        const regexp =  /<!--.+-->/g;
-        const contents = [];
-        let m;
-
-       code_list = code.split(/\r\n|\n/);
-
-       for (let i=0;i<code_list.length;i++){
+  const regexp =  /<!--.+-->/g;
+  code_list = code.split(/\r\n|\n/);
+  // "" delete
+  code_list = code_list.filter(Boolean)
+ // String of commentout user input
+ let commentout ="";
+ let program_code = "";
+ //list
+ console.log(code_list)
+       for (let i=0;i< code_list.length;i++){
+         // Is this in the commentout?
           if (code_list[i].match(regexp)){
+            // list -> string
                   m = String(code_list[i].match(regexp))
-                  console.log(code_list[i].match(regexp).length)
-                  commentout += m.replace("<!--","").replace("-->","");
-          }
-
-
-                  /*
-            for (let i = 1; i < code.match(regexp).length; i++ ){
-                  commentout = commentout.replace("<!--","").replace("-->","");
-                  console.log(commentout);
-                  */
-            }
-        }
-       document.getElementById('article-show').innerHTML = DOMPurify.sanitize(marked(commentout))
+                  commentout += m.replace("<!--","").replace("-->","")+"\n";
+                  // commentout encode
+                  encode += DOMPurify.sanitize(marked(escapeHtml(commentout)))
+                  console.log(encode)
        }
-  console.log(code)
+      else{
+         // program code encode
+      program_code = "<pre><code>"+escapeHtml(code_list[i])+"</code></pre>"
+      encode += program_code
+      console.log(encode)
+       }
+       }
+       console.log(encode)
+       document.getElementById('article-show').innerHTML = encode
 }
 
 
+function escapeHtml(unsafe) {
+  return unsafe
+       .replace(/&/g, "&amp;")
+       .replace(/</g, "&lt;")
+       .replace(/>/g, "&gt;")
+       .replace(/"/g, "&quot;")
+       .replace(/'/g, "&#039;");
+}
 
+function reclean(){
+  document.querySelectorAll('pre code').forEach((block) => {
+    hljs.highlightBlock(block);
+    hljs.lineNumbersBlock(block);
+  });
+  for (let x=0;x<document.getElementsByClassName('hljs xml').length;x++)
+  document.getElementsByClassName('hljs xml')[x].insertAdjacentHTML("afterend",x)
 
+  setTimeout("reclean()", 1000);
+};    
 
+reclean();
 </script>
 {% endblock %}
