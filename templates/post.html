@@ -124,10 +124,10 @@ function updateValue(e) {
        if (code.match(regexp)){
          m = String(code.match(regexp))
        commentout = m.replace("<!--","").replace("-->","")
+       document.getElementById('article-show').innerHTML = DOMPurify.sanitize(marked(commentout))
        }
-console.log(commentout)
+  console.log(commentout)
 }
-
 
 
 
