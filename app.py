@@ -10,7 +10,9 @@ def index():
 def post():
   return render_template('post.html')
 
-
+@app.route('/a')
+def a():
+  return render_template('a.html')
 
 if __name__ == '__main__':
   app.run(debug=True)

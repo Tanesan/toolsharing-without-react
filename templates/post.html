@@ -18,7 +18,9 @@
 .no-blue-outline::-moz-focus-inner{ /*Firefox用*/
     border: none;
 }
-
+pre {
+  margin: 0rem!important;
+}
     .top_header.hidden {
       transform: translateY(0%)!important;
   }
@@ -127,23 +129,26 @@ function updateValue(e) {
   // "" delete
   code_list = code_list.filter(Boolean)
  // String of commentout user input
- let commentout ="";
  let program_code = "";
+ let mutch_number = 0;
  //list
  console.log(code_list)
        for (let i=0;i< code_list.length;i++){
          // Is this in the commentout?
+        
           if (code_list[i].match(regexp)){
+            let commentout =""; 
             // list -> string
+                  mutch_number += 1
                   m = String(code_list[i].match(regexp))
                   commentout += m.replace("<!--","").replace("-->","")+"\n";
                   // commentout encode
                   encode += DOMPurify.sanitize(marked(escapeHtml(commentout)))
-                  console.log(encode)
+                  console.log(commentout)
        }
       else{
          // program code encode
-      program_code = "<pre><code>"+escapeHtml(code_list[i])+"</code></pre>"
+      program_code = '<pre><code class ="hljs" style="padding: .5em 0em .5em 0em;"><a style="display: inline;background: #ff0b0b;padding: .7em 1em .7em 1em;background: #01187c;" onClick="ask()">'+(i - mutch_number + 1 )+'</a><span class="d-inline ml-1">'+escapeHtml(code_list[i])+"</span></code></pre>"
       encode += program_code
       console.log(encode)
        }
@@ -162,14 +167,17 @@ function escapeHtml(unsafe) {
        .replace(/'/g, "&#039;");
 }
 
+// codeの横の番号が表示されるとよこのコメントアウトを表示
+
+function ask(){
+  console.log("aaa")
+}
+
 function reclean(){
-  document.querySelectorAll('pre code').forEach((block) => {
+  document.querySelectorAll('pre code span').forEach((block) => {
     hljs.highlightBlock(block);
     hljs.lineNumbersBlock(block);
   });
-  for (let x=0;x<document.getElementsByClassName('hljs xml').length;x++)
-  document.getElementsByClassName('hljs xml')[x].insertAdjacentHTML("afterend",x)
-
   setTimeout("reclean()", 1000);
 };    
 
