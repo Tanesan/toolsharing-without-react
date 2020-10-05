@@ -9,52 +9,71 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ext-emmet.js"></script>
 <script src="{{ url_for('static', filename='js/highlight/highlight.pack.js') }}"></script>
 <link rel="stylesheet" href="{{ url_for('static', filename='js/highlight/styles/a11y-dark.css')}}">
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js">
+</script>
 <style>
-
-  .no-blue-outline:focus{
+  .no-blue-outline:focus {
     outline: none;
-}
-.no-blue-outline::-moz-focus-inner{ /*Firefox用*/
+  }
+
+  .no-blue-outline::-moz-focus-inner {
+    /*Firefox用*/
     border: none;
-}
-pre {
-  margin: 0rem!important;
-}
-    .top_header.hidden {
-      transform: translateY(0%)!important;
-  }
-  .fixed-top{
-      position: relative !important;
   }
 
- .form-control{
-      border: .8px solid rgb(163,163,163,163) !important;
-      border-radius: 0rem;
- }
- .title-form{
-  border-bottom: hidden!important;
-  border-left: hidden!important;
-  border-right: hidden!important;
- }
- .tag-form{
-  border-left: hidden!important;
-  border-right: hidden!important;
- }
- .content-form{
-  border-top: hidden!important;
-  resize: none;
-  height:50vh!important;
- }
+  pre {
+    margin: 0rem !important;
+  }
 
- p{
-  word-wrap: break-word;
- }
-  </style>
+  .top_header.hidden {
+    transform: translateY(0%) !important;
+  }
+
+  .fixed-top {
+    position: relative !important;
+  }
+
+  .form-control {
+    border: .8px solid rgb(163, 163, 163, 163) !important;
+    border-radius: 0rem;
+  }
+
+  .title-form {
+    border-bottom: hidden !important;
+    border-left: hidden !important;
+    border-right: hidden !important;
+  }
+
+  .tag-form {
+    border-left: hidden !important;
+    border-right: hidden !important;
+  }
+
+  .content-form {
+    border-top: hidden !important;
+    resize: none;
+    height: 50vh !important;
+  }
+
+  p {
+    word-wrap: break-word;
+  }
+</style>
 
 <div class="form-group form-grup-kill-mb">
-    <input type="text" id="title" class="form-control form-control-lg title-form no-blue-outline" placeholder="記事のタイトルを入力してください">
-    <input type="text" id="title-tag" class="form-control form-control tag-form no-blue-outline" placeholder="この記事に関するタグを入力してください" >
+  <input type="text" id="title" class="form-control form-control-lg title-form no-blue-outline"
+    placeholder="記事のタイトルを入力してください">
+
+  <div class="form-inline">
+    <select id="select-language" class="form-control" style="width:20vw">
+      <option value="">言語を選んでください</option>
+      <option value="HTML">HTML, CSS, Js</option>
+      <option value="Python">Python</option>
+    </select>
+
+    <input type="text" id="title-tag" class="form-control form-control tag-form no-blue-outline"
+      placeholder="この記事に関するタグを入力してください" style="width:80vw">
+  </div>
 </div>
 <!--
 <pre><code><p>ああああ</p></code></pre>
@@ -63,124 +82,179 @@ pre {
 -->
 
 <div class="row row-pd-kill">
-    
-    <div class="col-6 col-kill">
-        <div class="form-group form-grup-kill-mb">
-    
 
-           <!--
+  <div class="col-6 col-kill">
+    <div class="form-group form-grup-kill-mb">
+
+
+      <!--
           <textarea type="text" id="article-writte" class="form-control form-control-boder content-form" placeholder="記事をご記入ください"></textarea>
 -->
-<div id="article-write" style="height:50vh;"></div>
-        </div>
+      <div id="article-write" style="height:50vh;"></div>
     </div>
-
-   
-
+  </div>
 
 
-    <div class="col-6 col-kill">
-<div id="article-show" class="px-2" placeholder="記事の詳細が表示されます" style="height:50vh;"></div>
-</div>
-<div id="article-show-program" class="form-control form-control-boder" style="height:30vh;"></div>
+
+
+
+  <div class="col-6 col-kill">
+    <div id="article-show" class="px-2" placeholder="記事の詳細が表示されます" style="height:50vh;"></div>
+  </div>
+  <div id="article-show-program" class="form-control form-control-boder" style="height:30vh;"></div>
 </div>
 
 
 
 <!-- Submit button display under absolute-->
 <nav class="navbar navbar-light mb-2 fixed-bottom top_footer" style="flex-direction: row-reverse;">
-    <!-- naver logo + title -->
-    <div>
-      <button type="button" class="btn btn-outline-success text-right mr-3">Submit</button>
-    </div>
-  </nav>
+  <!-- naver logo + title -->
+  <div>
+    <button type="button" class="btn btn-outline-success text-right mr-3">Submit</button>
+  </div>
+  <p>ソースコードに１つの警告と１つのエラーが出ています</p>
+</nav>
 
 
-  <script>
-    hljs.initHighlightingOnLoad();
-      hljs.initLineNumbersOnLoad();
-    // Ace js config
-    var editor = ace.edit("article-write");
-    editor.$blockScrolling = Infinity;
-    editor.setOptions({
-      enableBasicAutocompletion: true,
-      enableSnippets: true,
-      enableEmmet: true,
-      enableLiveAutocompletion: true
-    });
-    editor.setTheme("ace/theme/tomorrow_night");
-    editor.setFontSize(14);
-    editor.getSession().setMode("ace/mode/html");
-    editor.getSession().setUseWrapMode(true);
-    editor.getSession().setTabSize(2);
-
-
-    const input = document.getElementById('article-write');
-
-
-    input.addEventListener('input', updateValue);
-    
-//if user input the data, always do this function
-function updateValue(e) {
-  let encode = "";
-  var code = editor.getValue();
-  const regexp =  /<!--.+-->/g;
-  code_list = code.split(/\r\n|\n/);
-  // "" delete
-  code_list = code_list.filter(Boolean)
- // String of commentout user input
- let program_code = "";
- let mutch_number = 0;
- //list
- console.log(code_list)
-       for (let i=0;i< code_list.length;i++){
-         // Is this in the commentout?
-        
-          if (code_list[i].match(regexp)){
-            let commentout =""; 
-            // list -> string
-                  mutch_number += 1
-                  m = String(code_list[i].match(regexp))
-                  commentout += m.replace("<!--","").replace("-->","")+"\n";
-                  // commentout encode
-                  encode += DOMPurify.sanitize(marked(escapeHtml(commentout)))
-                  console.log(commentout)
-       }
-      else{
-         // program code encode
-      program_code = '<pre><code class ="hljs" style="padding: .5em 0em .5em 0em;"><a style="display: inline;background: #ff0b0b;padding: .7em 1em .7em 1em;background: #01187c;" onClick="ask()">'+(i - mutch_number + 1 )+'</a><span class="d-inline ml-1">'+escapeHtml(code_list[i])+"</span></code></pre>"
-      encode += program_code
-      console.log(encode)
-       }
-       }
-       console.log(encode)
-       document.getElementById('article-show').innerHTML = encode
-}
-
-
-function escapeHtml(unsafe) {
-  return unsafe
-       .replace(/&/g, "&amp;")
-       .replace(/</g, "&lt;")
-       .replace(/>/g, "&gt;")
-       .replace(/"/g, "&quot;")
-       .replace(/'/g, "&#039;");
-}
-
-// codeの横の番号が表示されるとよこのコメントアウトを表示
-
-function ask(){
-  console.log("aaa")
-}
-
-function reclean(){
-  document.querySelectorAll('pre code span').forEach((block) => {
-    hljs.highlightBlock(block);
-    hljs.lineNumbersBlock(block);
+<script>
+  hljs.initHighlightingOnLoad();
+  hljs.initLineNumbersOnLoad();
+  // Ace js config
+  var editor = ace.edit("article-write");
+  editor.$blockScrolling = Infinity;
+  editor.setOptions({
+    enableBasicAutocompletion: true,
+    enableSnippets: true,
+    enableEmmet: true,
+    enableLiveAutocompletion: true
   });
-  setTimeout("reclean()", 1000);
-};    
+  editor.setTheme("ace/theme/tomorrow_night");
+  editor.setFontSize(14);
+  editor.getSession().setUseWrapMode(true);
+  editor.getSession().setTabSize(2);
 
-reclean();
+
+
+
+
+ // let regexp = /<!--.+-->/g;
+
+  // Language if changed
+  const languageCh = document.getElementById("select-language");
+  languageCh.addEventListener('change', function () {
+    if (languageCh.value == "HTML") {
+   //   regexp = /<!--.+-->/g;
+      editor.getSession().setMode("ace/mode/html");
+    } else if (languageCh.value == "Python") {
+   //   regexp = /#./g;
+      editor.getSession().setMode("ace/mode/python");
+    }
+  });
+  let encode = "";
+
+  //if user input the data, always do this function
+  function updateValue(e) {
+    encode = "";
+    var code = editor.getValue();
+    // const regexp =  /<!--.+-->/g;
+    code_list = code.split(/\r\n|\n/);
+    // "" delete
+    code_list = code_list.filter(Boolean)
+    // String of commentout user input
+    let program_code = "";
+    let mutch_number = 0;
+    let commentoutnum = 0;
+    //list
+    // console.log(code_list)
+    for (let i = 0; i < code_list.length; i++) {
+      // Is this in the commentout?
+      console.log(document.getElementsByClassName("ace_comment")[commentoutnum])
+      // ace_commentが存在するか確認
+      if (document.getElementsByClassName("ace_comment")[commentoutnum] != null) {
+        // ace_commentがコメントアウトの行と一致するか確認
+        if (document.getElementsByClassName("ace_comment")[commentoutnum].textContent === code_list[i]) {
+          //commentout　取得
+          m = document.getElementsByClassName("ace_comment")[commentoutnum].textContent
+          console.log(i, document.getElementsByClassName("ace_comment")[commentoutnum].textContent, code_list[i])
+          // Commentout 確認
+          commentoutnum += 1;
+          let commentout = "";
+          // list -> string
+          mutch_number += 1;
+          //  m = String(code_list[i].match(regexp))
+          commentout += m.replace("<!--", "").replace("-->", "") + "\n";
+          // commentout encode
+          encode += DOMPurify.sanitize(marked(escapeHtml(commentout)))
+          //  console.log(commentout)
+        } else if (code_list[i].indexOf(document.getElementsByClassName("ace_comment")[commentoutnum].textContent) > -1){
+
+          m = document.getElementsByClassName("ace_comment")[commentoutnum].textContent
+          // Commentout 確認
+          commentoutnum += 1;
+          let commentout = "";
+          // list -> string
+          mutch_number += 1;
+          //  m = String(code_list[i].match(regexp))
+          commentout += m.replace("<!--", "").replace("-->", "") + "\n";
+          // commentout encode
+          encode += DOMPurify.sanitize(marked(escapeHtml(commentout)))
+          //  console.log(commentout)
+          code_list[i] = code_list[i].replace(m, "")
+          codes(i, mutch_number)
+
+
+
+        }else{
+          codes(i, mutch_number)
+        }
+      } else {
+        codes(i, mutch_number)
+      }
+    }
+    //  console.log(encode)
+    document.getElementById('article-show').innerHTML = encode
+  }
+
+
+  function codes(i, mutch_number) {
+    //  console.log(i, document.getElementsByClassName( "ace_comment" )[commentoutnum].textContent,code_list[i])
+    // program code encode
+    program_code =
+      '<pre><code class ="hljs" style="padding: .5em 0em .5em 0em;"><a style="display: inline;background: #ff0b0b;padding: .7em 1em .7em 1em;background: #01187c;" onClick="ask()">' +
+      (i - mutch_number + 1) + '</a><span class="d-inline ml-1">' + escapeHtml(code_list[i]) +
+      "</span></code></pre>"
+    encode += program_code
+    //   console.log(encode)
+  }
+
+  function escapeHtml(unsafe) {
+    return unsafe
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  // codeの横の番号が表示されるとよこのコメントアウトを表示
+
+  function ask() {
+    console.log("aaa")
+  }
+
+  const input = document.getElementById('article-write');
+  //これを使ってもいいが、markup時ラグ発生するのであえて消す。
+  //input.addEventListener('input', updateValue);
+
+  function reclean() {
+    updateValue();
+    document.querySelectorAll('pre code span').forEach((block) => {
+      hljs.highlightBlock(block);
+      hljs.lineNumbersBlock(block);
+    });
+    setTimeout("reclean()", 1000);
+  };
+
+  reclean();
 </script>
 {% endblock %}
