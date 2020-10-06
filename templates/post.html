@@ -112,7 +112,7 @@
   <div>
     <button type="button" class="btn btn-outline-success text-right mr-3">Submit</button>
   </div>
-  <p>ソースコードに１つの警告と１つのエラーが出ています</p>
+  <p>ソースコードに<span id="warn_num">0</span>つの警告と<span id="error_num">0</span>つのエラーが出ています</p>
 </nav>
 
 
@@ -175,14 +175,18 @@
         if (document.getElementsByClassName("ace_comment")[commentoutnum].textContent === code_list[i]) {
           //commentout　取得
           m = document.getElementsByClassName("ace_comment")[commentoutnum].textContent
-          console.log(i, document.getElementsByClassName("ace_comment")[commentoutnum].textContent, code_list[i])
+         // console.log(i, document.getElementsByClassName("ace_comment")[commentoutnum].textContent, code_list[i])
           // Commentout 確認
           commentoutnum += 1;
           let commentout = "";
           // list -> string
           mutch_number += 1;
           //  m = String(code_list[i].match(regexp))
-          commentout += m.replace("<!--", "").replace("-->", "") + "\n";
+          let [a,b] = commentoutSystem(m,commentout)
+          let lista = [a,b]
+          m = lista[0];
+          commentout = lista[1];
+
           // commentout encode
           encode += DOMPurify.sanitize(marked(escapeHtml(commentout)))
           //  console.log(commentout)
@@ -195,7 +199,10 @@
           // list -> string
           mutch_number += 1;
           //  m = String(code_list[i].match(regexp))
-          commentout += m.replace("<!--", "").replace("-->", "") + "\n";
+          let [a,b] = commentoutSystem(m,commentout)
+          let lista = [a,b]
+          m = lista[0];
+          commentout = lista[1];
           // commentout encode
           encode += DOMPurify.sanitize(marked(escapeHtml(commentout)))
           //  console.log(commentout)
@@ -248,6 +255,9 @@
 
   function reclean() {
     updateValue();
+    console.log(document.getElementsByClassName("ace_info").length,document.getElementsByClassName("ace_error").length)
+    document.getElementById('warn_num').innerText = document.getElementsByClassName("ace_info").length;
+    document.getElementById('error_num').innerText = document.getElementsByClassName("ace_error").length;
     document.querySelectorAll('pre code span').forEach((block) => {
       hljs.highlightBlock(block);
       hljs.lineNumbersBlock(block);
@@ -256,5 +266,18 @@
   };
 
   reclean();
+
+function commentoutSystem(m,commentout){
+
+  // HTML
+  if (m.indexOf("<!--") === 0 ){
+    commentout += m.replace("<!--", "").replace("-->", "") + "\n";
+  }
+// Python
+  if (m.indexOf("#") === 0 ){
+    commentout += m.replace("#", "") + "\n";
+  }
+  return [m,commentout]
+}
 </script>
 {% endblock %}
