@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<title>Pythonの始め方</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="{{ url_for('static', filename='js/purify.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/highlight/highlight.pack.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='js/highlight/styles/a11y-dark.css')}}">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+        function escapeHtml(unsafe) {
+            return unsafe
+              .replace(/&/g, "&amp;")
+              .replace(/</g, "&lt;")
+              .replace(/>/g, "&gt;")
+              .replace(/"/g, "&quot;")
+              .replace(/'/g, "&#039;");
+          }
+</script>
+<style>
+
+h1{
+    margin-top:4rem;
+    margin-bottom:1rem;
+}
+h2{
+    margin-top:2rem;
+    margin-bottom:1rem;
+}
+h3{
+    margin-top:1rem;
+    margin-bottom:1rem;
+}
+h4{
+    margin-top:.8rem;
+    margin-bottom:1rem;
+}
+h5{
+    margin-top:.4rem;
+    margin-bottom:1rem;
+}
+h6{
+    margin-top:.2rem;
+    margin-bottom:1rem;
+}
+
+
+
+
+
+
+
+</style>
+
+<div class="mt-adjust-frontpage container-sp-frontpage container">
+    <div class="row d-inline mx-auto mb-5">
+        <h1 class="text-center">Pythonの始め方</h1>
+        <h6 class="text-center artile_date mt-2">2020.10.02 <br>Made by Keito Tanemura</h6>
+
+
+
+
+   
+<div class="mt-5">
+    {% for i in range(num_range) %}
+
+    {%  if lista["blocks"][i]["type"] == "code" %}
+
+    <pre><code>{{ lista["blocks"][i]["data"]["text"]  }}</code></pre>
+
+    {% elif lista["blocks"][i]["type"] == "text" %}
+    <script>
+        var markdown = {{ lista["blocks"][i]["data"]["text"]|tojson }};
+        document.write(DOMPurify.sanitize(marked(escapeHtml(markdown))));
+    </script>
+
+    {% endif %}
+
+    {% endfor %}
+</div>
+
+
+</div>
+</div>
+{% endblock %}
+
