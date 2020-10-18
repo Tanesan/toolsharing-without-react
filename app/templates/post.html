@@ -59,7 +59,8 @@
     word-wrap: break-word;
   }
 </style>
-
+<!--
+<form action="/articles/add" method="POST"> -->
 <div class="form-group form-grup-kill-mb">
   <input type="text" id="title" class="form-control form-control-lg title-form no-blue-outline"
     placeholder="記事のタイトルを入力してください" required>
@@ -114,7 +115,9 @@
   </div>
   <p>ソースコードに<span id="warn_num">0</span>つの警告と<span id="error_num">0</span>つのエラーが出ています</p>
 </nav>
-
+<!--
+</form> 
+-->
 
 <script>
   hljs.initHighlightingOnLoad();
@@ -217,7 +220,8 @@ function commentoutSystem(m,commentout){
 
 
 let encode_json = {}
-
+var form = document.createElement('form');
+var request = document.createElement('input');
 
 // Submit
 const submit = document.getElementById("submit")
@@ -228,7 +232,6 @@ submit.addEventListener('click', function () {
   var times = date.getTime();
   var written_times = Math.floor( times / 1000 ) ;
   encode_json["title"] = document.getElementById("title").value;
-  encode_json["author"] = "aaaaa";
   encode_json["time"] = written_times;
   encode_json["blocks"] = blocks;
   encode_json["tag"] = "aaa";
@@ -236,13 +239,21 @@ submit.addEventListener('click', function () {
 
 
   console.log(encode_json)
+  form.method = 'POST';
+  form.action = '/articles/add';
 
-  });
+  request.type = 'application/json'; //入力フォームが表示されないように
+  request.name = 'data';
+  request.value = JSON.stringify(encode_json);
+
+  form.appendChild(request);
+  document.body.appendChild(form);
+
+  form.submit();
 
 
 
-
-
-
+})
 </script>
+
 {% endblock %}

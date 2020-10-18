@@ -1,0 +1,21 @@
+{% block content %}
+    <div>
+        <h3>Questionの追加</h3>
+        <div>
+            <form action="/articles/update/{{ question.id }}" method="POST">
+                <div>
+                    <div>
+                        <input type="text" name="title" placeholder="Title" value="{{ question.title }}">
+                    </div>
+                </div>
+
+                <div>
+                    <div>
+                        <input type="text" name="body" placeholder="Body" value="{{ question.body }}">
+                    </div>
+                </div>
+                <button>修正する</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

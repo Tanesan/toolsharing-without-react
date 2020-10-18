@@ -2326,7 +2326,7 @@ already downloaded that one!
 Version 1.0 of javascript syntax highlighter is released!
 
 It's the first version available with English description. Feel free to post
-your comments and question to [highlight.js forum][forum]. And don't be afraid
+your comments and article to [highlight.js forum][forum]. And don't be afraid
 if you find there some fancy Cyrillic letters -- it's for Russian users too :-)
 
 [forum]: http://softwaremaniacs.org/forum/viewforum.php?id=6

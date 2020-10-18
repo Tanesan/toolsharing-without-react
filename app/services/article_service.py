@@ -1,18 +1,50 @@
 from app import db
  
+from app.article_config import Article
+import json
+from sqlalchemy.exc import SQLAlchemyError
  
-# モデルに関する設定
-class Article(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(1000))
-    body = db.Column(db.String(255))
-    # Userに所有されている状態
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE', name='user_id__question_id_fk'))
  
-    @classmethod
-    def from_args(cls, title: str, body: str, user_id: int):
-        instance = cls()
-        instance.title = title
-        instance.body = body
-        instance.user_id = user_id
-        return instance
+def find_all() -> [Article]:
+    return Article.query.all()
+ 
+ 
+def find_one(article_id: int) -> Article:
+    if article_id is None:
+        raise Exception
+    return Article.query.filter_by(id=article_id).first()
+ 
+ 
+def save(article_id: int, user_id: int, data: {}) -> Article:
+    try:
+        if article_id is None:
+            data = json.loads(data)
+            article = Article.from_args(
+                data,
+                user_id
+            )
+            print(article)
+            db.session.add(article)
+        else:
+            print(data+"bbbb")
+            article = find_one(article_id)
+            article.title = data["title"]
+            article.create_time = data["create_time"]
+            article.blocks = data["blocks"]
+            article.user_id = user_id
+        db.session.commit()
+        return article
+    except SQLAlchemyError:
+        raise Exception
+ 
+ 
+def delete(article_id: int) -> bool:
+    if article_id is None:
+        raise Exception
+    try:
+        article = find_one(article_id)
+        db.session.delete(article)
+        db.session.commit()
+        return True
+    except SQLAlchemyError:
+        raise Exception

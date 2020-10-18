@@ -1,6 +1,6 @@
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from sqlalchemy.orm import relationship
 from app import db
 
 # モデルに関する設定
@@ -9,7 +9,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(100), unique=True)
     name = db.Column(db.String(1000))
     password = db.Column(db.String(100))
-
+    airticles = relationship('Article')
     # モデルからインスタンスを生成するときに使います。(利便性を高めるため)
     # passwordの暗号化も自動で行うことができるので、安全性も高めることができます。
     @classmethod
