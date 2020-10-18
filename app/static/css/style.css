@@ -63,7 +63,7 @@
 
 .mt-adjust-frontpage {
     margin-top: 15%;
-    margin-bottom: 15%;
+   /* margin-bottom: 15%; */
 }
 
 @media (min-width: 576px){
@@ -150,4 +150,9 @@
 
 .artile_date{
     color: #636363ba;
+}
+
+ul{
+    list-style: none;
+    padding-inline-start:32px;
 }
