@@ -1,4 +1,4 @@
-from flask_login import login_user
+from flask_login import login_user, logout_user
 from sqlalchemy.exc import SQLAlchemyError
 from app import db
 from app.user_config import User
