@@ -24,6 +24,8 @@ login_manager.init_app(app)
 # これを上に書くと未定義のままdbがいったりきたりするので上に書いてはいけない
 from app.user_config import User
 from app.article_config import Article
+from app.services.article_service import find_all
+from app.services.article_service import find_trend
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -34,22 +36,24 @@ from app.auth_view.auth import auth
 from app.article_view.article import articles
 # authに関するルートをflaskアプリであるappに追加
 app.register_blueprint(auth)
-
 app.register_blueprint(articles, url_prefix='/articles')
  
 
 @app.route('/')
 @login_required
 def index():
-  return render_template('index.html')
+  print("A")
+  articles_all = find_all()
+  articles_trend = find_trend()
+  return render_template('index.html', articles_all = articles_all , articles_trend = articles_trend)
 
 @app.route('/post')
 def post():
   return render_template('post.html')
 
-@app.route('/a')
-def a():
-  return render_template('a.html')
+@app.route('/dashboad')
+def dashboad():
+  return render_template('dashboad.html')
 
 
 #@app.route('/article')

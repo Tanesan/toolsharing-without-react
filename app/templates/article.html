@@ -55,48 +55,26 @@ h6{
 </style>
 <div class="mt-adjust-frontpage container-sp-frontpage container">
     <div class="row d-inline mx-auto mb-5">
-        <h1 class="text-center">Pythonの始め方</h1>
+        <h1 class="text-center">{{ article.title }}</h1>
     </div>
 </div>
-        
+
 
 
 <div class="row mx-auto">
     <div class="col-9">
    
 <div class="mt-5">
-    <p>aaaa</p>
-    <p>aaaa</p><p>aaaa</p><p>aaaa</p>
-
-
-    <p>aaaa</p>
-    <p>aaaa</p><p>aaaa</p>
-
-    <p>aaaa</p>
-    <p>aaaa</p>
-    <p>aaaa</p>
-    <p>aaaa</p>
-    <p>aaaa</p>
-    <p>aaaa</p>
-    <p>aaaa</p>
-    <p>aaaa</p>
-    <p>aaaa</p>
-    <p>Title：{{ article.title }}</p>
-    <p>Body：{{ article.body }}</p>
-    <p>aaaa</p>
-    <p>aaaa</p>
-    <p>aaaa</p>
-    <p>aaaa</p>
 
     {% for i in range(num_range) %}
 
-    {%  if lista["blocks"][i]["type"] == "code" %}
+    {%  if articleBody[i]["type"] == "code" %}
 
-    <pre><code>{{ lista["blocks"][i]["data"]["text"]  }}</code></pre>
+    <pre><code>{{ articleBody[i]["data"]["text"]  }}</code></pre>
 
-    {% elif lista["blocks"][i]["type"] == "text" %}
+    {% elif articleBody[i]["type"] == "text" %}
     <script>
-        var markdown = {{ lista["blocks"][i]["data"]["text"]|tojson }};
+        var markdown = {{ articleBody[i]["data"]["text"]|tojson }};
         document.write(DOMPurify.sanitize(marked(escapeHtml(markdown))));
     </script>
 

@@ -47,33 +47,44 @@
 
 <!-- Here -->
     <div id="recentry-post-content">
-      <div class="article-title-name mb-20px">
-        <p class="small logo-string-¥ article-programlangage">Python</p>
-        <h3>flaskの基本的な使い方</h3>
-        <p class="text-right logo-string-¥ small"><span class="article-number">120</span> days ago By <span
-            class="article-number">ASA</span></p>
-      </div>
+      
 
+      {% for article in articles_all %}
 
       <div class="article-title-name mb-20px">
-        <p class="small logo-string-¥ article-programlangage">Python</p>
-        <h3>flaskの基本的な使い方</h3>
-        <p class="text-right logo-string-¥ small"><span class="article-number">120</span> days ago By <span
-            class="article-number">ASA</span></p>
+        <p class="small logo-string-¥ article-programlangage" style="margin-bottom: 0rem;">{{ article.language }}</p>
+        <a href="/articles/{{ article.id }}" ><h3>{{ article.title }}</h3></a>
+        <a href="/tag/{{ article.tag }}" class="tag px-2 mb-2 small">{{ article.tag }}</a>
+        <div class="mb-3 mt-2">
+          <p class="logo-string-¥ small d-inline" style="letter-spacing: 0.4px;"><span class="article-number mr-2" style="font-weight: 700;">{{ article.view }}</span>PV</p>
+          <p class="logo-string-¥ small d-inline" style="float: right;"><span class="article-number mr-2" style="font-weight: 700;">120</span> days ago By <span
+              class="article-number mr-2" style="font-weight: 700;">{{ article.user_id }}</span></p>
+            </div>
       </div>
 
+      {% endfor %}
+    
 
-      <div class="article-title-name mb-20px">
-        <p class="small logo-string-¥ article-programlangage">Python</p>
-        <h3>flaskの基本的な使い方</h3>
-        <p class="text-right logo-string-¥ small"><span class="article-number">120</span> days ago By <span
-            class="article-number">ASA</span></p>
-      </div>
     </div>
 
 
 <!-- Here -->
 <div id="whole-post-content" class="hide">
+
+  {% for article_tr in articles_trend %}
+
+  <div class="article-title-name mb-20px">
+    <p class="small logo-string-¥ article-programlangage" style="margin-bottom: 0rem;">{{ article_tr.language }}</p>
+    <a href="/articles/{{ article_tr.id }}" ><h3>{{ article_tr.title }}</h3></a>
+    <a href="/tag/{{ article_tr.tag }}" class="tag px-2 mb-2 small">{{ article_tr.tag }}</a>
+    <div class="mb-3 mt-2">
+      <p class="logo-string-¥ small d-inline" style="letter-spacing: 0.4px;"><span class="article-number mr-2" style="font-weight: 700;">{{ article_tr.view }}</span>PV</p>
+      <p class="logo-string-¥ small d-inline" style="float: right;"><span class="article-number mr-2" style="font-weight: 700;">120</span> days ago By <span
+          class="article-number mr-2" style="font-weight: 700;">{{ article_tr.user_id }}</span></p>
+        </div>
+  </div>
+
+  {% endfor %}
 </div>
 
 
@@ -85,7 +96,8 @@
   <div class="article-title-name mb-20px">
     <p class="small logo-string-¥ article-programlangage">Python</p>
     <h3>flaskの基本的な使い方</h3>
-    <p class="text-right logo-string-¥ small"><span class="article-number">120</span> days ago By <span
+    <p class="text-left logo-string-¥ small d-inline"><span class="article-number">1000</span>View</p>
+    <p class="text-right logo-string-¥ small d-inline"><span class="article-number">120</span> days ago By <span
         class="article-number">ASA</span></p>
   </div>
 

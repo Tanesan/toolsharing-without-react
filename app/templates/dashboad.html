@@ -1,0 +1,154 @@
+{% extends "layout.html" %}
+{% block content %}
+<link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="$$hosted_libs_prefix$$/$$version$$/material.cyan-light_blue.min.css">
+
+<style>
+    .circle {
+        height: 160px;
+        width: 160px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+    }
+    .circle-follow{
+        height: 56px;
+        width: 56px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+    }
+    .circle_percent_hide {
+        height: 200px;
+        width: 200px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        position:absolute;
+
+    }
+    .circle_percent {
+        height: 160px;
+        width: 160px;
+        background-color: #fff;
+        border-radius: 50%;
+        display: inline-block;
+        z-index:10;
+        margin:20px;
+        position: absolute;
+
+    }
+    .circle_sector{
+        background-image: linear-gradient(270deg, #ffffffcc 50%, transparent 50%);
+    }
+</style>
+
+
+<div class="mt-adjust-frontpage container">
+
+    <div class="row">
+        <div class="col-3">
+            <span class="circle"></span>
+        </div>
+        <div class="col-9">
+            <h3>Keito</h3>
+            <small>@Keito</small>
+            <div class="row mt-4">
+                <div class="col-2 mr-4 dashboad-score">
+                    <p class="dashboad-colmn logo-string-t">Articles</p>
+                    <p class="dashboad-number">10</p>
+                </div>
+                <div class="col-2 mr-4 dashboad-score">
+                    <p class="dashboad-colmn logo-string-h">Follow</p>
+                    <p class="dashboad-number">10</p>
+                </div>
+                <div class="col-2 mr-4 dashboad-score">
+                    <p class="dashboad-colmn logo-string-o">Follower</p>
+                    <p class="dashboad-number">10</p>
+                </div>
+                <div class="col-2 mr-4 dashboad-score">
+                    <p class="dashboad-colmn logo-string-s">Level</p>
+                    <p class="dashboad-number">10</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <h2 class="mt-5 section-title section-title-t"><i class="fas fa-newspaper mr-3"></i>Articles</h2>
+    <div class="px-2">
+        <div class="article-title-name mb-20px pb-3 pt-1">
+            <p class="small logo-string-¥ article-programlangage">Python</p>
+            <h3>flaskの基本的な使い方</h3>
+            <p class="text-left logo-string-¥ small d-inline"><span class="article-number">1000</span>View</p>
+            <p class="text-right logo-string-¥ small d-inline"><span class="article-number">120</span> days ago By <span
+                    class="article-number">ASA</span></p>
+        </div>
+        <div class="article-title-name mb-20px pb-3 pt-1">
+            <p class="small logo-string-¥ article-programlangage">Python</p>
+            <h3>flaskの基本的な使い方</h3>
+            <p class="text-left logo-string-¥ small d-inline"><span class="article-number">1000</span>View</p>
+            <p class="text-right logo-string-¥ small d-inline"><span class="article-number">120</span> days ago By <span
+                    class="article-number">ASA</span></p>
+        </div>
+        <div class="article-title-name mb-20px pb-3 pt-1">
+            <p class="small logo-string-¥ article-programlangage">Python</p>
+            <h3>flaskの基本的な使い方</h3>
+            <p class="text-left logo-string-¥ small d-inline"><span class="article-number">1000</span>View</p>
+            <p class="text-right logo-string-¥ small d-inline"><span class="article-number">120</span> days ago By <span
+                    class="article-number">ASA</span></p>
+        </div>
+    </div>
+
+    <h2 class="mt-5 section-title section-title-o"><i class="fas fa-user-friends mr-3"></i>Follow</h2>
+    <div class="row">
+        <div class="col-3 py-2 article-title-name">
+            <div class="px-3" style="float:left;">
+                <span class="circle-follow"></span>
+            </div>
+                <div>
+                <span class="mt-1 d-flex">Yamada</span>
+                <small class="mt-1 d-flex">Python</small>
+            </div>
+        
+        </div>
+    </div>
+    
+
+
+
+
+
+    <h2 class="mt-5 section-title section-title-s"><i class="fas fa-users mr-3"></i>Follower</h2>
+    <div class="row">
+        <div class="col-3 py-2 article-title-name">
+            <div class="px-3" style="float:left;">
+                <span class="circle-follow"></span>
+            </div>
+                <div>
+                <span class="mt-1 d-flex">Yamada</span>
+                <small class="mt-1 d-flex">Python</small>
+            </div>
+        
+        </div>
+    </div>
+    <h2 class="mt-5 section-title section-title-h"><i class="fab fa-hackerrank mr-3"></i>Level</h2>
+
+    <div class="row">
+        <div class="col-3">
+            <div class="circle_percent_hide section-title-background-t circle_sector"></div>
+            <div class="circle_percent"><span class="text-center" style="margin-top: 40%;width: 100%;display: inline-block;">1000%</span>
+
+            </div>
+     
+        </div>
+    </div>
+
+
+
+
+
+
+</div>
+{% endblock %}

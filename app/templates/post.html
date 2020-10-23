@@ -158,7 +158,7 @@
    let st_code_data = [{
       "type": "code",
       "data": {
-        "text": code_list[i]
+        "text": escapeJson(code_list[i])
       }
     }]
     blocks = blocks.concat(st_code_data);
@@ -178,6 +178,17 @@
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;");
+  }
+  function escapeJson(unsafe) {
+    return unsafe
+    .replace(/\\n/g, "\\n")
+    .replace(/\\'/g, "\\'")
+    .replace(/\\"/g, '\\"')
+    .replace(/\\&/g, "\\&")
+    .replace(/\\r/g, "\\r")
+    .replace(/\\t/g, "\\t")
+    .replace(/\\b/g, "\\b")
+    .replace(/\\f/g, "\\f")
   }
 
   // codeの横の番号が表示されるとよこのコメントアウトを表示
@@ -235,7 +246,7 @@ submit.addEventListener('click', function () {
   encode_json["time"] = written_times;
   encode_json["blocks"] = blocks;
   encode_json["tag"] = "aaa";
-
+  encode_json["language"] = languageCh.value;
 
 
   console.log(encode_json)

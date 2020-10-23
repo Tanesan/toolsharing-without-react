@@ -1,18 +1,20 @@
+{% extends "layout.html" %}
 {% block content %}
-    <div>
+<div class="mt-adjust-frontpage container-sp-frontpage container">
         <h3>Sign Up</h3>
+        <p>アカウントをお持ちの方は<a href="/login">こちら</a>からログインしてください</p>
         <div>
             <form action="/signup" method="POST">
-                <div>
-                    <input type="text" name="name" placeholder="Name" autofocus="">
+                <div class="form-group">
+                    <input type="text" name="name" class="form-control" placeholder="Name" autofocus="">
                 </div>
-                <div>
-                    <input type="email" name="email" placeholder="Email" autofocus="">
+                <div class="form-group">
+                    <input type="email" name="email" class="form-control" placeholder="Email" autofocus="">
                 </div>
-                <div>
-                    <input type="password" name="password" placeholder="Password">
+                <div class="form-group">
+                    <input type="password" name="password" class="form-control" placeholder="Password">
                 </div>
-                <button>Sign Up</button>
+                <button type="button" class="btn btn-outline-primary">Sign Up</button>
             </form>
         </div>
     </div>

@@ -1,20 +1,22 @@
+{% extends "layout.html" %}
 {% block content %}
-    <div>
+<div class="mt-adjust-frontpage container-sp-frontpage container">
         <h3>Login</h3>
+        <p>アカウントをお持ちでない方は<a href="/signup">こちら</a>から新規登録してください</p>
         <form method="POST" action="/login">
-            <div>
-                <input type="email" name="email" placeholder="Your Email" autofocus="">
+            <div class="form-group">
+                <input type="email" name="email" placeholder="Your Email" class="form-control" autofocus="">
             </div>
-            <div>
-                <input type="password" name="password" placeholder="Your Password">
+            <div class="form-group">
+                <input type="password" name="password" placeholder="Your Password" class="form-control">
             </div>
-            <div>
+            <div class="form-check">
                 <label>
-                    <input type="checkbox">
+                    <input class="form-check-input" type="checkbox">
                     Remember me
                 </label>
             </div>
-            <button>Login</button>
+            <button type="button" class="btn btn-outline-primary">Login</button>
         </form>
     </div>
 {% endblock %}

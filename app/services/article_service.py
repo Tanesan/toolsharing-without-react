@@ -3,12 +3,16 @@ from app import db
 from app.article_config import Article
 import json
 from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy import desc
+
+article = Article()
+def find_all() -> Article:
+    return Article.query.order_by(desc(article.create_time)).all()
  
- 
-def find_all() -> [Article]:
-    return Article.query.all()
- 
- 
+def find_trend() -> Article:
+    return Article.query.order_by(desc(article.view)).all()
+
+
 def find_one(article_id: int) -> Article:
     if article_id is None:
         raise Exception
@@ -19,9 +23,12 @@ def save(article_id: int, user_id: int, data: {}) -> Article:
     try:
         if article_id is None:
             data = json.loads(data)
+            view = 0
+            print(data)
             article = Article.from_args(
                 data,
-                user_id
+                user_id,
+                view
             )
             print(article)
             db.session.add(article)
@@ -32,6 +39,7 @@ def save(article_id: int, user_id: int, data: {}) -> Article:
             article.create_time = data["create_time"]
             article.blocks = data["blocks"]
             article.user_id = user_id
+            article.view = 0
         db.session.commit()
         return article
     except SQLAlchemyError:

@@ -36,7 +36,7 @@
           let nd_code_data = [{
             "type": "text",
             "data": {
-              "text": escapeHtml(commentout)
+              "text": escapeJson(escapeHtml(commentout))
             }
           }]
           blocks = blocks.concat(nd_code_data);

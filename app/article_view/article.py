@@ -1,14 +1,16 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
-
+import json
+import ast
 from app.services import article_service
 
 articles = Blueprint('articles', __name__)
-
+ 
 
 @articles.route('/')
 @login_required  # ログインしていないと表示できないようにする
 def find_all():
+    print("B") # airticle投稿後ページ
     articles = article_service.find_all()
     return render_template('index.html', articles=articles)
 
@@ -16,8 +18,13 @@ def find_all():
 @articles.route('/<article_id>')
 @login_required  # ログインしていないと表示できないようにする
 def find_one(article_id: int):
+    print("A")
     article = article_service.find_one(article_id)
-    return render_template('article.html', article=article)
+    print(article.blocks)
+    articleBody = ast.literal_eval(article.blocks)
+    # articleBody = json.loads(articleBody)
+    print(len(articleBody))
+    return render_template('article.html', article=article, articleBody = articleBody, num_range = len(articleBody))
 
 
 
