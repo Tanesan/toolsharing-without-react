@@ -210,3 +210,19 @@ ul{
     border-radius: 16px;
     box-shadow: 9px 4px 9px 0px #a9a9a987;
 }
+
+.navbar-toggler{
+    color: rgba(0,0,0,.5);
+    border-color: rgba(0,0,0,0)!important;
+}
+
+/* for block of numbers */
+ .t-num{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+ 

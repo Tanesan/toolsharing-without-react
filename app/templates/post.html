@@ -72,8 +72,11 @@
       <option value="Python">Python</option>
     </select>
 
+    <div id="over" style="position: absolute;left: 21vw;color:rgba(255,0,0,0.5)">
+    </div>
     <input type="text" id="title-tag" class="form-control form-control tag-form no-blue-outline"
       placeholder="この記事に関するタグを入力してください" style="width:80vw">
+
   </div>
 </div>
 <!--
@@ -137,6 +140,32 @@
   editor.getSession().setTabSize(2);
 
  // let regexp = /<!--.+-->/g;
+ const title_tags = document.getElementById("title-tag")
+ title_tags.addEventListener('input', function () {
+   num = title_tags.value.split(",");
+   console.log(num)
+   while (document.getElementById("over").firstChild) {
+    document.getElementById("over").removeChild(document.getElementById("over").firstChild);
+   }
+
+   for (let i = 0; i < num.length; i++){
+      console.log(i)
+     // title_tags.value = title_tags[i]
+      var create_span = document.createElement("span");
+      create_span.style.cssText = 'display:inline;border-radius: 4px;background-color: rgba(65, 182, 230, 0.44);color: rgb(0 0 0 / 0%);';
+      create_span.appendChild(document.createTextNode(num[i]));
+      var create_p = document.createElement("p");
+      create_p.style.cssText = 'display:inline;color: rgb(0 0 0 / 0%);';
+      create_p.appendChild(document.createTextNode(","));
+
+
+      document.getElementById("over").appendChild(create_span);
+      document.getElementById("over").appendChild(create_p);
+    }
+ })
+
+
+
 
   // Language if changed
   const languageCh = document.getElementById("select-language");
